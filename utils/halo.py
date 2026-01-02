@@ -28,7 +28,7 @@ class HaloProjection:
 
     def show_2d_projection(self, 
                            fig, ax, 
-                           box_size, num_bins=201,
+                           box_size, num_bins=51,
                            axis=2,
                            log_scale=False,
                            vmin=None, vmax=None):
@@ -37,12 +37,13 @@ class HaloProjection:
         y_bins = np.linspace(- box_size/2, box_size/2, num_bins)
 
         column_density = self._get_2d_projection(x_bins, y_bins, axis)
+        avg_density = column_density / box_size
         if log_scale:
-            column_density = np.log10(column_density)
+            avg_density = np.log10(avg_density)
 
         c = ax.pcolormesh(
             x_bins, y_bins,
-            column_density.T,
+            avg_density.T,
             cmap='RdBu',
             vmin=vmin, vmax=vmax,
             shading='auto'

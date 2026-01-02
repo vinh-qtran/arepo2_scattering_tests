@@ -43,14 +43,14 @@ class SphereICs(ICs_writer.ICsWriter):
 
     def _get_background(self):
         bg_part_coords = np.random.uniform(
-            -self.bg_size / 2, self.bg_size / 2, size=(self.bg_N_part, 3)
+            0, self.bg_size, size=(self.bg_N_part, 3)
         ).astype(np.float64)
 
         bg_part_velocs = np.zeros((self.bg_N_part, 3), dtype=np.float64)
         return bg_part_coords, bg_part_velocs
     
     def _get_sphere(self):
-        _sph_center = np.array([0.0, 0.0, - (self.bg_size/2 - self.sph_radius)], dtype=np.float64)
+        _sph_center = np.array([self.bg_size/2, self.bg_size/2, self.sph_radius], dtype=np.float64)
 
         _sph_part_radii = self.sph_radius * np.cbrt(np.random.uniform(0.0, 1.0, size=self.sph_N_part)).astype(np.float64)
         _sph_part_thetas = np.arccos(1 - 2 * np.random.uniform(0.0, 1.0, size=self.sph_N_part)).astype(np.float64)
